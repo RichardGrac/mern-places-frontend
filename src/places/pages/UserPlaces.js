@@ -34,10 +34,7 @@ const UserPlaces = () => {
   }
 
   const deleteAPlace = pid => {
-    debugger
-    console.log('pid: ', pid)
     const newPlaces = places.filter(p => p.id !== pid)
-    console.log('newPlaces: ', newPlaces)
     setPlaces(newPlaces)
   }
 

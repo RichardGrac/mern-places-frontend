@@ -31,7 +31,6 @@ const NewPlace = (props) => {
 
   const placeSubmitHandler = async event => {
       event.preventDefault();
-        debugger
       try {
           const r = await fetch('http://localhost:5000/api/places', {
               method: 'POST',
