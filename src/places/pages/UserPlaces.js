@@ -12,6 +12,7 @@ const UserPlaces = () => {
   const userId = React.useState(useParams().userId)[0]
 
   React.useEffect(() => {
+    console.log('userId: ', userId)
     getPlaces(userId)
   }, [])
 

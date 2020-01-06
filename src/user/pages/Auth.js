@@ -11,6 +11,7 @@ import {
 import { useForm } from '../../shared/hooks/form-hook';
 import { AuthContext } from '../../shared/context/auth-context';
 import './Auth.css';
+import {BACKEND_URL} from '../../shared/util/urls'
 
 const Auth = () => {
   const auth = useContext(AuthContext);
@@ -54,11 +55,37 @@ const Auth = () => {
     setIsLoginMode(prevMode => !prevMode);
   };
 
-  const authSubmitHandler = event => {
+  const authSubmitHandler = async event => {
     event.preventDefault();
-    console.log(formState.inputs);
-    auth.login();
-  };
+    if (formState.isValid) {
+
+        const endpoint = isLoginMode ? 'signin' : 'signup'
+        const body = {
+            email: formState.inputs.email.value,
+            password: formState.inputs.password.value,
+        }
+
+        if (!isLoginMode) body.name = formState.inputs.name.value
+
+        try {
+            const r = await fetch(`${BACKEND_URL}api/users/${endpoint}`, {
+                method: 'POST',
+                body: JSON.stringify(body),
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+
+            if (r && r.status === 200 || r.status === 201) {
+                const data = await r.json()
+                auth.login(data.userId)
+            } else throw new Error('Failed to sign in/up')
+
+        } catch (e) {
+            console.log('e.message: ', e.message)
+        }
+    }
+  }
 
   return (
     <Card className="authentication">
