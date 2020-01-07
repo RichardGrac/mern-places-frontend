@@ -11,10 +11,12 @@ import {
 import {useForm} from '../../shared/hooks/form-hook';
 import './PlaceForm.css';
 import {BACKEND_URL} from '../../shared/util/urls'
+import {AuthContext} from '../../shared/context/auth-context'
 
 const UpdatePlace = (props) => {
     const [loading, setLoading] = useState(true);
     const [currentPlace, setCurrentPlace] = useState({})
+    const auth = React.useContext(AuthContext);
     const placeId = useState(useParams().placeId)[0]
 
     const [formState, inputHandler, setFormData] = useForm(
@@ -77,7 +79,7 @@ const UpdatePlace = (props) => {
             if (r) {
                 const data = await r.json()
                 console.log('data.message: ', data.message)
-                props.history.push('/u1/places')
+                props.history.push(`/${auth.userId}/places`)
             }
         }
     };
