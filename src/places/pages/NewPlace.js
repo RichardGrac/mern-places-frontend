@@ -40,7 +40,6 @@ const NewPlace = (props) => {
         event.preventDefault();
         try {
             if (formState.isValid) {
-                console.log('formState.inputs: ', formState.inputs)
                 const formData = new FormData()
                 formData.append('title', formState.inputs.title.value)
                 formData.append('description', formState.inputs.description.value)
@@ -50,16 +49,21 @@ const NewPlace = (props) => {
 
                 const r = await fetch('http://localhost:5000/api/places', {
                     method: 'POST',
-                    body: formData
+                    body: formData,
+                    headers: {
+                        'Authorization': 'Bearer ' + auth.userToken
+                    }
                 })
 
                 if (r && r.status === 201) {
-                    console.log('r.message: ', r.message)
                     props.history.push(`/${auth.userId}/places`)
+                } else {
+                    const data = await r.json()
+                    throw new Error(data.message)
                 }
             }
         } catch (e) {
-            alert('Could not be possible to Add a new Place')
+            alert(e.message)
         }
     };
 

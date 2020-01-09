@@ -69,14 +69,15 @@ const UpdatePlace = (props) => {
             const r = await fetch(`${BACKEND_URL}api/places/${placeId}`, {
                 method: 'PATCH',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + auth.userToken
                 },
                 body: JSON.stringify({
                     title: formState.inputs.title.value,
                     description: formState.inputs.description.value
                 })
             })
-            if (r && r.status === 200) {
+            if (r && r.status === 201) {
                 props.history.push(`/${auth.userId}/places`)
             }
         }

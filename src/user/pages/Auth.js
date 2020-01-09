@@ -80,7 +80,7 @@ const Auth = () => {
 
                     if ((r && r.status === 200) || (r && r.status === 201)) {
                         const data = await r.json()
-                        auth.login(data.userId)
+                        auth.login(data.userId, data.token)
                     } else {
                         throw new Error('Failed to sign in/up')
                     }
@@ -104,7 +104,7 @@ const Auth = () => {
 
                     if ((r && r.status === 200) || (r && r.status === 201)) {
                         const data = await r.json()
-                        auth.login(data.user.id)
+                        auth.login(data.userId, data.token)
                     } else {
                         throw new Error('Failed to sign up')
                     }

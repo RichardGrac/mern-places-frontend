@@ -33,13 +33,13 @@ const PlaceItem = props => {
     const r = await fetch(`${BACKEND_URL}api/places/${props.id}`, {
       method: 'DELETE',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + auth.userToken
       }
     })
 
-    if (r) {
-      const data = await r.json()
-      console.log('data.message: ', data.message)
+    if (r && r.status === 200) {
+      // const data = await r.json()
       deleteAPlace(props.id)
     }
   };
