@@ -22,11 +22,7 @@ const UserPlaces = () => {
     if (r) {
       const data = await r.json()
       if (data.places && data.places.length > 0){
-        const placesWithImage = data.places.map(p => {
-          p.imageUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/NYC_Empire_State_Building.jpg/640px-NYC_Empire_State_Building.jpg'
-          return p
-        })
-        setPlaces(placesWithImage)
+        setPlaces(data.places)
       }else {
         setPlaces([])
       }

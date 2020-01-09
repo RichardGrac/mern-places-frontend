@@ -76,9 +76,7 @@ const UpdatePlace = (props) => {
                     description: formState.inputs.description.value
                 })
             })
-            if (r) {
-                const data = await r.json()
-                console.log('data.message: ', data.message)
+            if (r && r.status === 200) {
                 props.history.push(`/${auth.userId}/places`)
             }
         }

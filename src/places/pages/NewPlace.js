@@ -10,6 +10,7 @@ import {useForm} from '../../shared/hooks/form-hook';
 import './PlaceForm.css';
 import {withRouter} from 'react-router-dom'
 import {AuthContext} from '../../shared/context/auth-context'
+import ImageUpload from '../../shared/components/UIElements/ImageUpload'
 
 const NewPlace = (props) => {
     const auth = React.useContext(AuthContext);
@@ -26,6 +27,10 @@ const NewPlace = (props) => {
             address: {
                 value: '',
                 isValid: false
+            },
+            image: {
+                value: null,
+                isValid: false
             }
         },
         false
@@ -34,22 +39,24 @@ const NewPlace = (props) => {
     const placeSubmitHandler = async event => {
         event.preventDefault();
         try {
-            const r = await fetch('http://localhost:5000/api/places', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    title: formState.inputs.title.value,
-                    description: formState.inputs.description.value,
-                    address: formState.inputs.address.value,
-                    creator: auth.userId
-                }),
-            })
+            if (formState.isValid) {
+                console.log('formState.inputs: ', formState.inputs)
+                const formData = new FormData()
+                formData.append('title', formState.inputs.title.value)
+                formData.append('description', formState.inputs.description.value)
+                formData.append('address', formState.inputs.address.value)
+                formData.append('creator', auth.userId)
+                formData.append('image', formState.inputs.image.value)
 
-            if (r) {
-                console.log('r.message: ', r.message)
-                props.history.push(`/${auth.userId}/places`)
+                const r = await fetch('http://localhost:5000/api/places', {
+                    method: 'POST',
+                    body: formData
+                })
+
+                if (r && r.status === 201) {
+                    console.log('r.message: ', r.message)
+                    props.history.push(`/${auth.userId}/places`)
+                }
             }
         } catch (e) {
             alert('Could not be possible to Add a new Place')
@@ -83,6 +90,7 @@ const NewPlace = (props) => {
                 errorText="Please enter a valid address."
                 onInput={inputHandler}
             />
+            <ImageUpload id={'image'} onInput={inputHandler} errorText={'Please, provide an image'} />
             <Button type="submit" disabled={!formState.isValid}>
                 ADD PLACE
             </Button>

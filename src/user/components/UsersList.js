@@ -21,7 +21,7 @@ const UsersList = props => {
         <UserItem
           key={user.id}
           id={user.id}
-          image={user.imageUrl}
+          image={'http://localhost:5000/' + user.imageUrl}
           name={user.name}
           placeCount={user.places.length}
         />

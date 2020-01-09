@@ -26,7 +26,7 @@ const PlaceList = () => {
         <PlaceItem
           key={place.id}
           id={place.id}
-          image={place.imageUrl}
+          image={'http://localhost:5000/' + place.imageUrl}
           title={place.title}
           description={place.description}
           address={place.address}
