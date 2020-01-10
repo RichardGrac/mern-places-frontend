@@ -26,7 +26,7 @@ const PlaceList = () => {
         <PlaceItem
           key={place.id}
           id={place.id}
-          image={'http://localhost:5000/' + place.imageUrl}
+          image={`${process.env.REACT_APP_BACKEND_URL}${place.imageUrl}`}
           title={place.title}
           description={place.description}
           address={place.address}
@@ -38,4 +38,4 @@ const PlaceList = () => {
   );
 };
 
-export default PlaceList;
+export default PlaceList

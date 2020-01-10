@@ -1,7 +1,6 @@
 import React from 'react';
 
 import UsersList from '../components/UsersList';
-import {BACKEND_URL} from '../../shared/util/urls'
 
 const Users = () => {
   const [loading, setLoading] = React.useState(true)
@@ -14,7 +13,7 @@ const Users = () => {
 
   async function getUsers() {
     try {
-      const r = await fetch(`${BACKEND_URL}api/users`)
+      const r = await fetch(`${process.env.REACT_APP_BACKEND_URL}api/users`)
 
       if (r){
         const data = await r.json()

@@ -11,7 +11,6 @@ import {
 import {useForm} from '../../shared/hooks/form-hook';
 import {AuthContext} from '../../shared/context/auth-context';
 import './Auth.css';
-import {BACKEND_URL} from '../../shared/util/urls'
 import ImageUpload from '../../shared/components/UIElements/ImageUpload'
 
 const Auth = () => {
@@ -72,7 +71,7 @@ const Auth = () => {
                 })
 
                 try {
-                    const r = await fetch(`${BACKEND_URL}api/users/signin`, {
+                    const r = await fetch(`${process.env.REACT_APP_BACKEND_URL}api/users/signin`, {
                         method: 'POST',
                         body,
                         headers: {'Content-Type': 'application/json'}
@@ -97,7 +96,7 @@ const Auth = () => {
                 formData.append('image', formState.inputs.image.value)
 
                 try {
-                    const r = await fetch(`${BACKEND_URL}api/users/signup`, {
+                    const r = await fetch(`${process.env.REACT_APP_BACKEND_URL}api/users/signup`, {
                         method: 'POST',
                         body: formData
                     })

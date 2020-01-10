@@ -10,7 +10,6 @@ import {
 } from '../../shared/util/validators';
 import {useForm} from '../../shared/hooks/form-hook';
 import './PlaceForm.css';
-import {BACKEND_URL} from '../../shared/util/urls'
 import {AuthContext} from '../../shared/context/auth-context'
 
 const UpdatePlace = (props) => {
@@ -38,7 +37,7 @@ const UpdatePlace = (props) => {
     }, [])
 
     const getPlace = async () => {
-        const r = await fetch(`${BACKEND_URL}api/places/${placeId}`)
+        const r = await fetch(`${process.env.REACT_APP_BACKEND_URL}api/places/${placeId}`)
         if (r) {
             const data = await r.json()
             if (data.place) {
@@ -66,7 +65,7 @@ const UpdatePlace = (props) => {
     const placeUpdateSubmitHandler = async event => {
         event.preventDefault();
         if (formState.isValid) {
-            const r = await fetch(`${BACKEND_URL}api/places/${placeId}`, {
+            const r = await fetch(`${process.env.REACT_APP_BACKEND_URL}api/places/${placeId}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

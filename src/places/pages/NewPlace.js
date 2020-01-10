@@ -44,10 +44,9 @@ const NewPlace = (props) => {
                 formData.append('title', formState.inputs.title.value)
                 formData.append('description', formState.inputs.description.value)
                 formData.append('address', formState.inputs.address.value)
-                formData.append('creator', auth.userId)
                 formData.append('image', formState.inputs.image.value)
 
-                const r = await fetch('http://localhost:5000/api/places', {
+                const r = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/places`, {
                     method: 'POST',
                     body: formData,
                     headers: {

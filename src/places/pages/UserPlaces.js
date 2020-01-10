@@ -1,8 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
 import PlaceList from '../components/PlaceList';
-import {BACKEND_URL} from '../../shared/util/urls'
 
 export const PlacesContext = React.createContext([])
 
@@ -17,7 +15,7 @@ const UserPlaces = () => {
   }, [])
 
   const getPlaces = async () => {
-    const r = await fetch(`${BACKEND_URL}api/places/user/${userId}`)
+    const r = await fetch(`${process.env.REACT_APP_BACKEND_URL}api/places/user/${userId}`)
 
     if (r) {
       const data = await r.json()

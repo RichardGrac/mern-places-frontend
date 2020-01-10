@@ -6,7 +6,6 @@ import Modal from '../../shared/components/UIElements/Modal';
 import Map from '../../shared/components/UIElements/Map';
 import { AuthContext } from '../../shared/context/auth-context';
 import './PlaceItem.css';
-import {BACKEND_URL} from '../../shared/util/urls'
 import {withRouter} from 'react-router-dom'
 import {PlacesContext} from '../pages/UserPlaces'
 
@@ -30,7 +29,7 @@ const PlaceItem = props => {
 
   const confirmDeleteHandler = async () => {
     setShowConfirmModal(false);
-    const r = await fetch(`${BACKEND_URL}api/places/${props.id}`, {
+    const r = await fetch(`${process.env.REACT_APP_BACKEND_URL}api/places/${props.id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
