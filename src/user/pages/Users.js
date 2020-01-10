@@ -15,17 +15,13 @@ const Users = () => {
     try {
       const r = await fetch(`${process.env.REACT_APP_BACKEND_URL}api/users`)
 
-      if (r){
+      if (r && r.status === 200){
         const data = await r.json()
-        const usersWithImage = data.users.map(u => {
-          u.placeCount = 0
-          return u
-        })
-        setUsers(usersWithImage)
+        setUsers(data.users)
       }
 
     } catch (e) {
-      console.log('e.message: ', e.message)
+      console.log('Error getting users: ', e.message)
 
     }finally {
       setLoading(false)

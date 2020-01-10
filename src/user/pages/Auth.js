@@ -81,11 +81,11 @@ const Auth = () => {
                         const data = await r.json()
                         auth.login(data.userId, data.token)
                     } else {
-                        throw new Error('Failed to sign in/up')
+                        throw new Error('Failed to sign in')
                     }
 
                 } catch (e) {
-                    console.log('e.message: ', e.message)
+                    console.log('Signing in Error: ', e.message)
                 }
 
             } else {
@@ -101,15 +101,15 @@ const Auth = () => {
                         body: formData
                     })
 
+                    const data = await r.json()
                     if ((r && r.status === 200) || (r && r.status === 201)) {
-                        const data = await r.json()
                         auth.login(data.userId, data.token)
                     } else {
                         throw new Error('Failed to sign up')
                     }
 
                 } catch (e) {
-                    console.log('e.message: ', e.message)
+                    console.error('Signing up Error: ', e.message)
                 }
             }
         }
